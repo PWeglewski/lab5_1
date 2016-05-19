@@ -1,23 +1,21 @@
 package edu.iis.mto.multithread;
 
-import com.google.common.util.concurrent.MoreExecutors;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by piotr on 19.05.16.
  */
 public class BetterRadarTest {
+    @Rule
+    public RepeatRule repeatRule = new RepeatRule();
+
     @Test
+    @RepeatRule.Repeat(times = 100)
     public void launchPatriotOnceWhenNoticesAScudMissle() throws Exception {
         PatriotBattery batteryMock = mock(PatriotBattery.class);
         Executor executor = runnable -> runnable.run();
